@@ -1,0 +1,4 @@
+name: FarmeurimmoPurpurHub
+version: '${project.version}'
+main: fr.farmeurimmo.purpurhub.PurpurHub
+api-version: '1.20'

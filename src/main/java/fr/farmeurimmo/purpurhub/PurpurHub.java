@@ -6,6 +6,7 @@ import fr.farmeurimmo.purpurhub.listeners.PlayerListener;
 import fr.farmeurimmo.purpurhub.listeners.ProtectionListener;
 import fr.farmeurimmo.purpurhub.managers.ScoreBoardManager;
 import fr.farmeurimmo.purpurhub.managers.TABManager;
+import fr.mrmicky.fastinv.FastInvManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -37,10 +38,12 @@ public final class PurpurHub extends JavaPlugin {
 
         CONSOLE.sendMessage("§aLoading dependencies...");
         new LuckPermsHook();
+        FastInvManager.register(INSTANCE);
 
         CONSOLE.sendMessage("§aRegistering managers...");
         new TABManager();
         new ScoreBoardManager();
+        new ItemManager();
 
         CONSOLE.sendMessage("§aRegistering commands...");
         getCommand("build").setExecutor(new BuildCmd());
@@ -54,6 +57,7 @@ public final class PurpurHub extends JavaPlugin {
         for (Player p : Bukkit.getOnlinePlayers()) {
             ScoreBoardManager.INSTANCE.updateBoard(p, -1);
             TABManager.INSTANCE.update(p);
+            applyHub(p);
         }
         getServer().getScheduler().runTaskTimer(INSTANCE, () -> {
             ArrayList<UUID> toRemove = new ArrayList<>();
@@ -120,5 +124,39 @@ public final class PurpurHub extends JavaPlugin {
             world.setGameRule(GameRule.FIRE_DAMAGE, false);
             world.setGameRule(GameRule.FREEZE_DAMAGE, false);
         }
+    }
+
+    public void applyHub(Player p) {
+        p.setGameMode(org.bukkit.GameMode.ADVENTURE);
+        p.setHealth(20);
+        p.setFoodLevel(20);
+        p.setSaturation(20);
+        p.setFireTicks(0);
+        p.setExp(0);
+        p.setLevel(0);
+        p.setTotalExperience(0);
+        p.setWalkSpeed(0.2f);
+        p.setFlySpeed(0.2f);
+        p.setAllowFlight(false);
+        p.setFlying(false);
+        p.setInvulnerable(true);
+        p.setCollidable(false);
+        p.setCanPickupItems(false);
+        p.setGlowing(false);
+        p.setPlayerTime(6000, false);
+        p.setPlayerWeather(org.bukkit.WeatherType.CLEAR);
+
+        p.getInventory().clear();
+        p.getInventory().setArmorContents(null);
+        p.getInventory().setHeldItemSlot(0);
+
+        p.getInventory().setItem(0, ItemManager.INSTANCE.getNavigationItem());
+        p.getInventory().setItem(2, ItemManager.INSTANCE.getSOONItem());
+        p.getInventory().setItem(4, ItemManager.INSTANCE.getSOONItem());
+        p.getInventory().setItem(6, ItemManager.INSTANCE.getSOONItem());
+        p.getInventory().setItem(8, ItemManager.INSTANCE.getSOONItem());
+
+
+        p.teleportAsync(p.getWorld().getSpawnLocation());
     }
 }

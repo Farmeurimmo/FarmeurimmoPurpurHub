@@ -1,0 +1,23 @@
+package fr.farmeurimmo.purpurhub.invs;
+
+import fr.farmeurimmo.purpurhub.ItemManager;
+import fr.mrmicky.fastinv.FastInv;
+import fr.mrmicky.fastinv.ItemBuilder;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
+public class NavigationInv extends FastInv {
+
+    public NavigationInv() {
+        super(27, "§6Navigation");
+
+        setItem(18, ItemBuilder.copyOf(new ItemStack(Material.RED_BED)).name("§eBack to the spawn").build(), e -> {
+            e.getWhoClicked().closeInventory();
+            e.getWhoClicked().teleport(e.getWhoClicked().getWorld().getSpawnLocation());
+        });
+
+        setItem(12, ItemManager.INSTANCE.getRPGItem(), e -> e.getWhoClicked().sendMessage("§cComing soon..."));
+
+        setItem(14, ItemManager.INSTANCE.getSOONItem());
+    }
+}

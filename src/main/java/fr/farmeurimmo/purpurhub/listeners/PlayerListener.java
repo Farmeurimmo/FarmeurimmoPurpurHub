@@ -6,11 +6,14 @@ import fr.farmeurimmo.purpurhub.dependencies.LuckPermsHook;
 import fr.farmeurimmo.purpurhub.invs.NavigationInv;
 import fr.farmeurimmo.purpurhub.managers.ScoreBoardManager;
 import fr.farmeurimmo.purpurhub.managers.TABManager;
+import fr.farmeurimmo.users.UsersManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener {
@@ -24,6 +27,14 @@ public class PlayerListener implements Listener {
         TABManager.INSTANCE.update(p);
 
         PurpurHub.INSTANCE.applyHub(p);
+
+        UsersManager.getUserOrCreate(p.getUniqueId(), p.getName()).thenAccept(usr -> {
+            //TODO
+        }).exceptionally(ex -> {
+            ex.printStackTrace();
+            p.kick(Component.text("§cAn error occurred while loading your data, please try again later"), PlayerKickEvent.Cause.PLUGIN);
+            return null;
+        });
 
         e.setJoinMessage("§6[§a+§6] §f" + LuckPermsHook.INSTANCE.getPlayerWithPrefixAndSuffix(p));
     }

@@ -3,10 +3,13 @@ package fr.farmeurimmo.purpurhub.managers;
 import fr.farmeurimmo.purpurhub.PurpurHub;
 import fr.farmeurimmo.purpurhub.TimeUtils;
 import fr.farmeurimmo.purpurhub.dependencies.LuckPermsHook;
+import fr.farmeurimmo.users.User;
+import fr.farmeurimmo.users.UsersManager;
 import fr.mrmicky.fastboard.FastBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -46,13 +49,14 @@ public class ScoreBoardManager {
                 if (board == null) {
                     board = new FastBoard(p);
                 }
+                User user = UsersManager.getCachedUser(p.getUniqueId());
                 board.updateTitle("§b§lPurpurHub");
                 board.updateLines(
                         "",
                         "§e» " + p.getName(),
                         "  §7Prefix §f» §7" + LuckPermsHook.INSTANCE.getPrefix(p.getUniqueId()),
                         "  §7Supporter §f» §7" + LuckPermsHook.INSTANCE.getSuffix(p.getUniqueId()),
-                        "  §7Fame §f» §cSOON",
+                        "  §7Fame §f» §c" + (user == null ? "Loading..." : NumberFormat.getInstance().format(user.getFame())),
                         "",
                         "§b" + TimeUtils.getCurrentTimeAndDate(),
                         "",

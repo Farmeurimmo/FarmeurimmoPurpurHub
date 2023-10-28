@@ -6,6 +6,7 @@ import fr.farmeurimmo.purpurhub.listeners.PlayerListener;
 import fr.farmeurimmo.purpurhub.listeners.ProtectionListener;
 import fr.farmeurimmo.purpurhub.managers.ScoreBoardManager;
 import fr.farmeurimmo.purpurhub.managers.TABManager;
+import fr.farmeurimmo.users.UsersManager;
 import fr.mrmicky.fastinv.FastInvManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
@@ -35,6 +36,17 @@ public final class PurpurHub extends JavaPlugin {
         CONSOLE = getServer().getConsoleSender();
 
         CONSOLE.sendMessage("§6Loading PurpurHub...");
+
+        CONSOLE.sendMessage("§aLoading users... (async)");
+        long start = System.currentTimeMillis();
+        UsersManager.getUsers().thenAccept(users -> {
+            long elapsed = System.currentTimeMillis() - start;
+            CONSOLE.sendMessage("§aLoaded §e" + users.size() + " §ausers in §e" + elapsed + "ms§a.");
+        }).exceptionally(ex -> {
+            CONSOLE.sendMessage("§cAn error occurred while loading users:");
+            ex.printStackTrace();
+            return null;
+        });
 
         CONSOLE.sendMessage("§aLoading dependencies...");
         new LuckPermsHook();

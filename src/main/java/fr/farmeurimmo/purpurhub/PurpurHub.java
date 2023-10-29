@@ -48,6 +48,9 @@ public final class PurpurHub extends JavaPlugin {
             return null;
         });
 
+        CONSOLE.sendMessage("§aGenerating world...");
+        new WorldManager();
+
         CONSOLE.sendMessage("§aLoading dependencies...");
         new LuckPermsHook();
         FastInvManager.register(INSTANCE);

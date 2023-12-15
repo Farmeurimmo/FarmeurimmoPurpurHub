@@ -1,4 +1,4 @@
-package fr.farmeurimmo.purpurhub;
+package fr.farmeurimmo.purpurhub.managers;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;

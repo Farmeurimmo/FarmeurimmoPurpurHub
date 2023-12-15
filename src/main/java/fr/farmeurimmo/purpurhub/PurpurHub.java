@@ -4,7 +4,9 @@ import fr.farmeurimmo.purpurhub.cmd.BuildCmd;
 import fr.farmeurimmo.purpurhub.dependencies.LuckPermsHook;
 import fr.farmeurimmo.purpurhub.listeners.PlayerListener;
 import fr.farmeurimmo.purpurhub.listeners.ProtectionListener;
+import fr.farmeurimmo.purpurhub.managers.ItemManager;
 import fr.farmeurimmo.purpurhub.managers.ScoreBoardManager;
+import fr.farmeurimmo.purpurhub.managers.ServerConnector;
 import fr.farmeurimmo.purpurhub.managers.TABManager;
 import fr.farmeurimmo.users.UsersManager;
 import fr.mrmicky.fastinv.FastInvManager;
@@ -55,10 +57,14 @@ public final class PurpurHub extends JavaPlugin {
         new LuckPermsHook();
         FastInvManager.register(INSTANCE);
 
+        CONSOLE.sendMessage("§aRegistering channels...");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(INSTANCE, "BungeeCord");
+
         CONSOLE.sendMessage("§aRegistering managers...");
         new TABManager();
         new ScoreBoardManager();
         new ItemManager();
+        new ServerConnector();
 
         CONSOLE.sendMessage("§aRegistering commands...");
         getCommand("build").setExecutor(new BuildCmd());

@@ -1,9 +1,9 @@
 package fr.farmeurimmo.purpurhub.listeners;
 
-import fr.farmeurimmo.purpurhub.ItemManager;
 import fr.farmeurimmo.purpurhub.PurpurHub;
 import fr.farmeurimmo.purpurhub.dependencies.LuckPermsHook;
 import fr.farmeurimmo.purpurhub.invs.NavigationInv;
+import fr.farmeurimmo.purpurhub.managers.ItemManager;
 import fr.farmeurimmo.purpurhub.managers.ScoreBoardManager;
 import fr.farmeurimmo.purpurhub.managers.TABManager;
 import fr.farmeurimmo.users.UsersManager;

@@ -1,9 +1,11 @@
 package fr.farmeurimmo.purpurhub.invs;
 
-import fr.farmeurimmo.purpurhub.ItemManager;
+import fr.farmeurimmo.purpurhub.managers.ItemManager;
+import fr.farmeurimmo.purpurhub.managers.ServerConnector;
 import fr.mrmicky.fastinv.FastInv;
 import fr.mrmicky.fastinv.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class NavigationInv extends FastInv {
@@ -15,6 +17,9 @@ public class NavigationInv extends FastInv {
             e.getWhoClicked().closeInventory();
             e.getWhoClicked().teleport(e.getWhoClicked().getWorld().getSpawnLocation());
         });
+
+        setItem(0, ItemBuilder.copyOf(new ItemStack(Material.RECOVERY_COMPASS)).name("§eDemo server 01").build(),
+                e -> ServerConnector.INSTANCE.connect((Player) e.getWhoClicked(), "demo01"));
 
         setItem(12, ItemManager.INSTANCE.getRPGItem(), e -> e.getWhoClicked().sendMessage("§cComing soon..."));
 

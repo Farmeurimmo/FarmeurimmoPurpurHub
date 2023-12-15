@@ -51,11 +51,12 @@ public class ScoreBoardManager {
                 }
                 User user = UsersManager.getCachedUser(p.getUniqueId());
                 board.updateTitle("§b§lPurpurHub");
+                String supporter = (p.hasPermission("purpurhub.supporter") ? "§a✔" : "§c✕");
                 board.updateLines(
                         "",
                         "§e» " + p.getName(),
                         "  §7Prefix §f» §7" + LuckPermsHook.INSTANCE.getPrefix(p.getUniqueId()),
-                        "  §7Supporter §f» §7" + LuckPermsHook.INSTANCE.getSuffix(p.getUniqueId()),
+                        "  §7Supporter §f» §7" + supporter,
                         "  §7Fame §f» §c" + (user == null ? "Loading..." : NumberFormat.getInstance().format(user.getFame())),
                         "",
                         "§b" + TimeUtils.getCurrentTimeAndDate(),

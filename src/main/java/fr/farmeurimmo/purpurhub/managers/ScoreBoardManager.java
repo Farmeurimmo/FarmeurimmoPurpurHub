@@ -27,46 +27,49 @@ public class ScoreBoardManager {
     }
 
     public void updateBoard(Player p, int num) {
-        switch (num) {
-            case 0 -> {
-                FastBoard board = boards.get(p.getUniqueId());
-                if (board == null) {
-                    board = new FastBoard(p);
+        try {
+            switch (num) {
+                case 0 -> {
+                    FastBoard board = boards.get(p.getUniqueId());
+                    if (board == null) {
+                        board = new FastBoard(p);
+                    }
+                    board.updateTitle("§6§lPurpurHub");
+                    board.updateLines(
+                            "",
+                            "§c...",
+                            "",
+                            "§a" + TimeUtils.getCurrentTimeAndDate(),
+                            "",
+                            "§bmc.farmeurimmo.fr");
+                    boards.put(p.getUniqueId(), board);
+                    boardNum.put(p.getUniqueId(), num);
                 }
-                board.updateTitle("§6§lPurpurHub");
-                board.updateLines(
-                        "",
-                        "§c...",
-                        "",
-                        "§a" + TimeUtils.getCurrentTimeAndDate(),
-                        "",
-                        "§bmc.farmeurimmo.fr");
-                boards.put(p.getUniqueId(), board);
-                boardNum.put(p.getUniqueId(), num);
-            }
-            default -> {
-                FastBoard board = boards.get(p.getUniqueId());
-                if (board == null) {
-                    board = new FastBoard(p);
+                default -> {
+                    FastBoard board = boards.get(p.getUniqueId());
+                    if (board == null) {
+                        board = new FastBoard(p);
+                    }
+                    User user = UsersManager.getCachedUser(p.getUniqueId());
+                    board.updateTitle("§b§lPurpurHub");
+                    String supporter = (p.hasPermission("purpurhub.supporter") ? "§a✔" : "§c✕");
+                    board.updateLines(
+                            "",
+                            "§e» " + p.getName(),
+                            "  §7Prefix §f» §7" + LuckPermsHook.INSTANCE.getPrefix(p.getUniqueId()),
+                            "  §7Supporter §f» §7" + supporter,
+                            "  §7Fame §f» §c" + (user == null ? "Loading..." : NumberFormat.getInstance().format(user.getFame())),
+                            "",
+                            "§b" + TimeUtils.getCurrentTimeAndDate(),
+                            "",
+                            "§9mc.farmeurimmo.fr"
+                    );
+                    boards.put(p.getUniqueId(), board);
+                    boardNum.put(p.getUniqueId(), num);
+                    break;
                 }
-                User user = UsersManager.getCachedUser(p.getUniqueId());
-                board.updateTitle("§b§lPurpurHub");
-                String supporter = (p.hasPermission("purpurhub.supporter") ? "§a✔" : "§c✕");
-                board.updateLines(
-                        "",
-                        "§e» " + p.getName(),
-                        "  §7Prefix §f» §7" + LuckPermsHook.INSTANCE.getPrefix(p.getUniqueId()),
-                        "  §7Supporter §f» §7" + supporter,
-                        "  §7Fame §f» §c" + (user == null ? "Loading..." : NumberFormat.getInstance().format(user.getFame())),
-                        "",
-                        "§b" + TimeUtils.getCurrentTimeAndDate(),
-                        "",
-                        "§9mc.farmeurimmo.fr"
-                );
-                boards.put(p.getUniqueId(), board);
-                boardNum.put(p.getUniqueId(), num);
-                break;
             }
+        } catch (Exception ignored) {
         }
     }
 

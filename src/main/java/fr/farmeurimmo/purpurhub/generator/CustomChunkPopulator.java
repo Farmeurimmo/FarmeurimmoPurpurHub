@@ -36,7 +36,7 @@ public class CustomChunkPopulator extends BlockPopulator {
 
             if (random.nextInt(100) < 60) {
                 if (random.nextInt(100) < 20) limitedRegion.setType(x, y + 1, z, Material.FERN);
-                else limitedRegion.setType(x, y + 1, z, Material.GRASS);
+                else limitedRegion.setType(x, y + 1, z, Material.GRASS_BLOCK);
                 continue;
             }
 

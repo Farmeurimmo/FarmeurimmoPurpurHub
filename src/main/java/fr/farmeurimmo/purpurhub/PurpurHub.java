@@ -12,6 +12,7 @@ import fr.farmeurimmo.users.UsersManager;
 import fr.mrmicky.fastinv.FastInvManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -75,11 +76,13 @@ public final class PurpurHub extends JavaPlugin {
 
         CONSOLE.sendMessage("§6Starting startup tasks...");
         applyHub();
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            ScoreBoardManager.INSTANCE.updateBoard(p, -1);
-            TABManager.INSTANCE.update(p);
-            applyHub(p);
-        }
+        Bukkit.getScheduler().runTaskLater(INSTANCE, () -> {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                ScoreBoardManager.INSTANCE.updateBoard(p, -1);
+                TABManager.INSTANCE.update(p);
+                applyHub(p);
+            }
+        }, 60L);
         getServer().getScheduler().runTaskTimer(INSTANCE, () -> {
             ArrayList<UUID> toRemove = new ArrayList<>();
             for (UUID uuid : build) {
@@ -178,6 +181,7 @@ public final class PurpurHub extends JavaPlugin {
         p.getInventory().setItem(8, ItemManager.INSTANCE.getSOONItem());
 
 
-        p.teleportAsync(p.getWorld().getSpawnLocation());
+        Location spawn = new Location(WorldManager.INSTANCE.getWorld(), 0, 100, 0);
+        p.teleportAsync(spawn);
     }
 }

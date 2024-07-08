@@ -11,8 +11,8 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.purpurmc.purpur.event.entity.PreEntityExplodeEvent;
 
 public class ProtectionListener implements Listener {
@@ -61,7 +61,7 @@ public class ProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void playerPickupItem(PlayerPickupItemEvent e) {
+    public void playerPickupItem(PlayerAttemptPickupItemEvent e) {
         if (PurpurHub.INSTANCE.build.contains(e.getPlayer().getUniqueId())) return;
 
         e.setCancelled(true);

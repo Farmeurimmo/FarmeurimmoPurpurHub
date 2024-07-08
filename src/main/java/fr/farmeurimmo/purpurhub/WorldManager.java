@@ -23,6 +23,10 @@ public class WorldManager {
     }
 
     private void removeWorld() {
+        if (getWorld() == null) {
+            return;
+        }
+        if (Bukkit.getWorld("world") == null) return;
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.teleport(Bukkit.getWorld("world").getSpawnLocation());
         }

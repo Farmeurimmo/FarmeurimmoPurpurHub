@@ -3,6 +3,7 @@ package fr.farmeurimmo.purpurhub.managers;
 import fr.farmeurimmo.purpurhub.PurpurHub;
 import fr.farmeurimmo.purpurhub.TimeUtils;
 import fr.farmeurimmo.purpurhub.dependencies.LuckPermsHook;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -17,9 +18,9 @@ public class TABManager {
     }
 
     public void update(Player p) {
-        p.setPlayerListHeaderFooter("\n§7Hub\n",
-                "\n§b" + TimeUtils.getCurrentTimeAndDate() + "\n\n§6farmeurimmo.fr\n");
-        p.setPlayerListName("§7" + LuckPermsHook.INSTANCE.getPlayerWithPrefixAndSuffix(p));
+        p.sendPlayerListHeaderAndFooter(Component.text("\n§7Hub\n"),
+                Component.text("\n§b" + TimeUtils.getCurrentTimeAndDate() + "\n\n§6farmeurimmo.fr\n"));
+        p.playerListName(Component.text("§7" + LuckPermsHook.INSTANCE.getPlayerWithPrefixAndSuffix(p)));
     }
 
     public void clock() {

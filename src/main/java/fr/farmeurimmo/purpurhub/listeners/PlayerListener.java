@@ -36,14 +36,14 @@ public class PlayerListener implements Listener {
             return null;
         });
 
-        e.setJoinMessage("§6[§a+§6] §f" + LuckPermsHook.INSTANCE.getPlayerWithPrefixAndSuffix(p));
+        e.joinMessage(Component.text("§6[§a+§6] §f" + LuckPermsHook.INSTANCE.getPlayerWithPrefixAndSuffix(p)));
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
 
-        e.setQuitMessage("§6[§c-§8] §f" + LuckPermsHook.INSTANCE.getPlayerWithPrefixAndSuffix(p));
+        e.quitMessage(Component.text("§6[§c-§8] §f" + LuckPermsHook.INSTANCE.getPlayerWithPrefixAndSuffix(p)));
     }
 
     @EventHandler

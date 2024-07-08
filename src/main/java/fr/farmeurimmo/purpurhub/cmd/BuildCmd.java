@@ -1,6 +1,7 @@
 package fr.farmeurimmo.purpurhub.cmd;
 
 import fr.farmeurimmo.purpurhub.PurpurHub;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,11 +19,11 @@ public class BuildCmd implements CommandExecutor {
         if (PurpurHub.INSTANCE.build.contains(p.getUniqueId())) {
             PurpurHub.INSTANCE.build.remove(p.getUniqueId());
             p.sendMessage("§cYou are no longer in build mode !");
-            p.sendActionBar(" ");
+            p.sendActionBar(Component.text(" "));
         } else {
             PurpurHub.INSTANCE.build.add(p.getUniqueId());
             p.sendMessage("§aYou are now in build mode !");
-            p.sendActionBar("§a§lIN BUILD MODE");
+            p.sendActionBar(Component.text("§a§lIN BUILD MODE"));
         }
         return false;
     }

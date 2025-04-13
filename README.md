@@ -1,3 +1,3 @@
 # FarmeurimmoPurpurHub
 
-This plugin is for the hub server at mc.farmeurimmo.fr (1.20+).
+This plugin is for the hub server at mc.farmeurimmo.fr (1.21.4+).

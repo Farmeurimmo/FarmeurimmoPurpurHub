@@ -10,6 +10,7 @@ import fr.farmeurimmo.purpurhub.managers.ServerConnector;
 import fr.farmeurimmo.purpurhub.managers.TABManager;
 import fr.farmeurimmo.users.UsersManager;
 import fr.mrmicky.fastinv.FastInvManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
@@ -20,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 public final class PurpurHub extends JavaPlugin {
@@ -68,7 +70,7 @@ public final class PurpurHub extends JavaPlugin {
         new ServerConnector();
 
         CONSOLE.sendMessage("§aRegistering commands...");
-        getCommand("build").setExecutor(new BuildCmd());
+        Objects.requireNonNull(getCommand("build")).setExecutor(new BuildCmd());
 
         CONSOLE.sendMessage("§aRegistering listeners...");
         getServer().getPluginManager().registerEvents(new PlayerListener(), INSTANCE);
@@ -90,7 +92,7 @@ public final class PurpurHub extends JavaPlugin {
                 if (p == null) toRemove.add(uuid);
                 else {
                     if (!p.hasPermission("purpur.build")) toRemove.add(uuid);
-                    else p.sendActionBar("§a§lIN BUILD MODE");
+                    else p.sendActionBar(Component.text("§a§lIN BUILD MODE"));
                 }
             }
             build.removeAll(toRemove);
